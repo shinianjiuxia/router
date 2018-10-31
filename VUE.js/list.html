@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title></title>
+    <script type="text/javascript" src="js/vue.js"></script>
+    <style type="text/css">
+    #app{
+        height: 100%;
+        margin-left: 200px;
+        width:50%;
+        text-align: center;
+        background-color: lightpink
+        }
+        .tab{
+            width: 600px;
+            margin-top: 30px;
+            background-color: lightpink;
+        }
+        input{
+            height: 25px;
+            margin-top: 10px;
+            border-radius:5px;
+        }
+    </style>    
+</head>
+<body>
+    <div id="app">
+    <div class="createForm">
+        姓名:<input type="text" name="uname" v-model="userName"><br>
+        年龄:<input type="text" name="uage" id="uage" v-model="userAge"><br>
+        性别:<select name="gender" v-model="selected">
+            <option v-for="option in options" v-bind:value="option.gender">
+                {{option.gender}}
+            </option>               
+        </select>
+        {{selected}}
+        <br>
+        <button type="button" v-on:click="insertInfo">创建</button>
+    </div>  
+    <table class="tab">
+        <tr style="background-color: pink">
+            <th>姓名</th>
+            <th>年龄</th>
+            <th>性别</th>
+            <th>删除</th>
+        </tr>
+        <tr v-for="(person,index) in infoArr">
+            <td>{{person.uname}}</td>
+            <td>{{person.uage}}</td>
+            <td>{{person.gender}}</td>
+            <td><button v-on:click="deleteInfo(index)">删除</button></td>
+        </tr>
+    </table>
+    </div>
+</body>
+</html>
+<script type="text/javascript">
+ new Vue({
+        el:"#app",
+        data:{
+            msg:"hello",
+            selected:'女',
+            userName:'',
+            userAge:'',
+            options:[
+            {gender:"男"},
+            {gender:"女"}
+            ],
+            infoArr:[]
+        },
+        methods:{
+        //添加数据的方法
+            insertInfo(){
+                var obj={};
+                obj.uname=this.userName;
+                obj.uage=this.userAge;
+                obj.gender=this.selected;
+                this.infoArr.push(obj);
+                console.log(obj);
+            },
+            //删除的方法
+            deleteInfo(index){
+                this.infoArr.splice(index,1);
+            }
+        }       
+    })
+
+</script>

@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="js/vue.js"></script>
+    <style>
+        .head{
+            widows: 400px;;
+            line-height:50px;
+            background-color: blue;
+            text-align: center;
+        }
+        #write{
+            width:400px;
+            height:30px;
+            border-radius: 25%;
+        }
+
+        #btn{
+            width:50px;
+            line-height:30px;
+            text-align: center;
+            margin-left: 250px ;
+        }
+        #app{
+            width:800px;
+            margin: 0 auto;
+            margin-top:50px;
+        }
+
+        li{
+            width:800px;
+            list-style: none;
+            line-height: 30px;
+            border-bottom: 1px solid #000;
+            margin:0 auto;
+            position:relative;
+        }
+        
+        li input{
+            width:400px;
+            height:30px;
+            border:0;
+        }
+        li button{
+            position:absolute;
+            right:100px;
+            bottom:0;
+           
+        }
+
+        li a{
+            position:absolute;
+            right:40px;
+            bottom:0; 
+        }
+        ul{
+            margin-left:-50px;
+        }
+    </style>
+</head>
+<body>
+ 
+    <div class="head">head</div>
+    <div id="app">
+            <input type="text" id="write" placeholder="请输入数据" v-model="msg">
+            <input type="button" value="添加" id="btn" @click="add(msg)" >
+           <ul >
+               <li v-for="(item,index) in arr">
+                   {{item}}
+                     <input type="text" v-if="arr.length">
+                     <button @click="del(index)">删除</button>
+                     <a href="javascript:;"> 编辑</a>
+               </li>
+            </ul>
+    </div>
+    <script>
+        var vm = new Vue({
+            el:'#app',
+            data:{
+                msg:'',
+                arr:["杨涛","去吃饭","吃了猪大肠"]
+            },
+
+            methods:{
+
+                add:function(msg){
+
+                    if(msg == ''){
+                        alert("请输入数据")
+                    }else{
+                        console.log(msg);
+                      this.arr.push(msg)
+                       this.msg = '';
+                    }
+                      
+
+                },
+                del:function(num){
+                    var newArr = this.arr.filter(function(item,index){
+                        return num != index;
+                    });
+
+                    this.arr=newArr;
+                    console.log(newArr);
+                    console.log(num);
+
+                }
+
+            }
+            
+
+        });
+    </script>
+    
+</body>
+</html>

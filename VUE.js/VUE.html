@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        #box{
+            width:400px;
+            margin:0 auto;
+        }
+        li{
+            list-style: none;
+        }
+        #box li{
+            width:400px;
+            border:1px solid #000000;
+        }
+    </style>
+    <script src="js/vue.js"></script>
+    <script src="js/jsonp.js"></script>
+</head>
+<body>
+      <div id="box">
+           <input type="text" v-model="msg" @input="changedValue">
+           <ul v-if="arr.length">
+               <li v-for="item in arr">{{item}}</li>
+           </ul>
+      </div>
+    
+    <script>
+        var vm = new Vue({
+            el:'#box',
+            data:{
+                msg:'',
+                arr:[]
+            },
+            methods:{
+                changedValue:function(){
+                   
+                    jsonp({
+                        url:'https://sp0.baidu.com/5a1Fazu8AA54nxGko9WTAnF6hhy/su',
+
+                        data:{
+                            wd:this.msg
+                        },
+                        callback:'cb',
+                        success:(res)=>{
+                            this.arr=res.s;
+                        }
+                    })
+                }
+
+            }
+        })
+    </script>
+</body>
+</html>
