@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        #box{
+            width:400px;
+            height:200px;
+            margin:0 auto;
+            border:1px solid #000000;
+        }
+        #box input{
+            width:50px;
+            line-height: 20px;
+            background-color: aliceblue;
+        }
+        #box div{
+            width:400px;
+            height:200px;
+            text-align: center;
+            border:1px solid #000000;
+            display: none;
+        }
+        .active{
+            background-color: blue;
+        }
+
+        .show{
+            display:block;
+        }
+    </style>
+</head>
+<body>
+    <div id="box">
+        <input type="text" value="按钮一" class="active">
+        <input type="text" value="按钮二">
+        <input type="text" value="按钮三">
+        <input type="text" value="按钮四">
+        <div class="show">11111</div>
+        <div>22222</div>
+        <div>33333</div>
+        <div>44444</div>
+    </div>
+</body>
+</html>

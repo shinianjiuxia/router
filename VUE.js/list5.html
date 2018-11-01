@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>vue.js拖拽效果</title>
+  <script src="js/vue.js"></script>
+  <style>
+    #heart {
+      position: relative;
+      width: 100px;
+      height: 90px;
+    }
+
+    #heart:before,
+    #heart:after {
+      position: absolute;
+      content: "";
+      left: 50px;
+      top: 0;
+      width: 50px;
+      height: 80px;
+      background: red;
+      -moz-border-radius: 50px 50px 0 0;
+      border-radius: 50px 50px 0 0;
+      -webkit-transform: rotate(-45deg);
+      -moz-transform: rotate(-45deg);
+      -ms-transform: rotate(-45deg);
+      -o-transform: rotate(-45deg);
+      transform: rotate(-45deg);
+      -webkit-transform-origin: 0 100%;
+      -moz-transform-origin: 0 100%;
+      -ms-transform-origin: 0 100%;
+      -o-transform-origin: 0 100%;
+      transform-origin: 0 100%;
+    }
+
+    #heart:after {
+      left: 0;
+      -webkit-transform: rotate(45deg);
+      -moz-transform: rotate(45deg);
+      -ms-transform: rotate(45deg);
+      -o-transform: rotate(45deg);
+      transform: rotate(45deg);
+      -webkit-transform-origin: 100% 100%;
+      -moz-transform-origin: 100% 100%;
+      -ms-transform-origin: 100% 100%;
+      -o-transform-origin: 100% 100%;
+      transform-origin: 100% 100%;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="heart" v-drag="true" ></div>
+ 
+  <script>
+    let heart = new Vue({
+      el: '#heart',
+      data: {},
+      methods: {},
+      directives: {
+        drag: {
+          // 指令的定义
+          bind: function (el, obj) {
+
+            console.log(el, obj.expression)
+            if (obj.expression == "true") {
+              el.onmousedown = (e) => {
+                //算出鼠标相对元素的位置
+                let disX = e.clientX - el.offsetLeft;
+                let disY = e.clientY - el.offsetTop;
+
+                document.onmousemove = (e) => {
+                  //用鼠标的位置减去鼠标相对元素的位置，得到元素的位置
+                  let left = e.clientX - disX;
+                  let top = e.clientY - disY;
+
+                  //绑定元素位置到positionX和positionY上面
+                  this.positionX = top;
+                  this.positionY = left;
+
+                  //移动当前元素
+                  el.style.left = left + 'px';
+                  el.style.top = top + 'px';
+                };
+                document.onmouseup = (e) => {
+                  document.onmousemove = null;
+                  document.onmouseup = null;
+                };
+              };
+            } else {
+              return
+            }
+
+          }
+
+        }
+      }
+    });
+  </script>
+
+</body>
+
+</html>

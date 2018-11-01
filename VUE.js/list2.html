@@ -66,51 +66,74 @@
  
     <div class="head">head</div>
     <div id="app">
-            <input type="text" id="write" placeholder="请输入数据" v-model="msg">
-            <input type="button" value="添加" id="btn" @click="add(msg)" >
+            <input type="text" id="write" placeholder="请输入数据" v-model="textValue">
+            <input type="button" value="添加" id="btn" @click="add(textValue)">
            <ul >
                <li v-for="(item,index) in arr">
-                   {{item}}
-                     <input type="text" v-if="arr.length">
-                     <button @click="del(index)">删除</button>
-                     <a href="javascript:;"> 编辑</a>
+                   <input type="text" v-show="item.onoff" v-model="item.content" @blur="blur(item)">
+                   <span v-show="!item.onoff">{{item.content}}</span>
+                    <button @click="delInfo(index)">删除</button>
+                    <a href="javascript:;" @click="inputShow(item)"> 编辑</a>
                </li>
             </ul>
-    </div>
+        </div>
 
     <script>
-        var vm = new Vue({
-            el:'#app',
+         var vm = new Vue({
+             el:'#app',
             data:{
-                msg:'',
-                arr:["免费的","所以啊","我来了","但是还是没有得到"],
-            },
-            methods:{
-              
-                add:function(msg){
-                    if(msg==''){
-                            alert("请输入数据")
-                    }else{
-                        this.arr.push(msg);
-                        this.msg="";
-                         console.log(msg)
+              textValue:'',
+             arr:[{
+                  content:'免费',
+                  onoff:false
+             },
+             {
+                 content:'所以啊',
+                 onoff:false
+
+             },
+             {
+                content:'都要来喔',
+                 onoff:false
+
+             },
+             {
+                content:'不来就收钱',
+                 onoff:false
+
+             }]
+
+            } ,
+
+             methods:{
+                 add:function(textValue){
+                    if(!this.textValue.trim()){
+                        alert('请输入数据')
+                        return
                     }
-                },
+                     this.arr.push({
+                        content:textValue,
+                         onoff:false
+                    })
+                    this.textValue=''
+                 },
 
-                del:function(num){
-                       var newArry=this.arr.filter(function(item,index){
+                 delInfo:function(index){
+                    this.arr.splice(index,1)
+                 },
 
-                           return num!=index
-                       });
-                       this.arr=newArry
-                        console.log(newArry)
-                }
+                 inputShow:function(item){
+                     console.log(item)
+                     item.onoff=true
+                 },
 
-              
-               
+                 blur:function(item){
+                    item.onoff=flase
+                    
+                 }
 
             }
-        });
+         });
     
     </script>
 

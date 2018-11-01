@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="js/vue.js"></script>
+</head>
+<body>
+        <div class="main">
+        <div class="left" v-bind:style="{width:ths[0].width+'px'}"></div>
+        <div class="right" @mousedown="drag"></div>
+        </div>
+        <script>
+        var vm1=new Vue({
+        el:'.main',
+        data:{
+        ths:[
+        {width:'30'},
+        {width:''}
+        ]
+        },
+        methods:{
+        drag:function(e,index){
+        
+        var Left=e.target.parentNode.children[0],
+        leftW=Left.offsetWidth,
+        startX=e.clientX;
+        _this=this;
+        console.log(_this);
+        
+        document.onmousemove=function(e){
+        e.preventDefault();
+        var distX=e.clientX-startX;
+        Left.style.width=leftW+distX+'px';
+        if(parseInt(Left.style.width)>=280){
+        Left.style.width=280+'px';
+        }
+        }
+        
+        document.onmouseup=function(){
+        document.onmousemove=null;
+        }
+        }
+        }
+        });
+        </script>
+        </body>
+</html>
